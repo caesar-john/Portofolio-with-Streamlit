@@ -31,6 +31,7 @@ pilihan_halaman = st.sidebar.radio(
 )
 
 #About
+# About
 if pilihan_halaman == "About":
 
     st.title("📂 About Me")
@@ -39,10 +40,11 @@ if pilihan_halaman == "About":
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        # Ganti dengan path foto kamu atau URL gambar
-        st.image(r"C:\Assignment Day 14\asset\foto profil.jpeg", caption="Data Analyst & Developer")
+        # Menambahkan indentasi agar berada di dalam 'with col1'
+        st.image("asset/foto profil.jpeg", caption="Data Analyst & Developer")
 
     with col2:
+        # Menambahkan indentasi agar berada di dalam 'with col2'
         st.subheader("Hi, I'm Caesar!")
         st.write("""
         I am a dedicated professional with a **thorough** approach to data analysis and web development. 
@@ -50,57 +52,12 @@ if pilihan_halaman == "About":
         """)
         st.info("Currently focused on building rigorous machine learning pipelines, ensuring model accuracy and reliable performance.")
 
-    st.divider()
-
-    # Bagian Skill & Expertise
-    st.header("🚀 Professional Expertise")
-    
-    tab1, tab2, tab3 = st.tabs(["Analysis Philosophy", "Technical Skills", "Decision Making"])
-
-    with tab1:
-        st.write("""
-        - **Rigorous Methodology:** I ensure every query and script follows a **rigorous** testing process to maintain data integrity.
-        - **Explicit Documentation:** I believe that code is only as good as its documentation. I provide **explicit** comments and guides for every project.
-        """)
-
-    with tab2:
-        # Menampilkan skill dengan progress bar atau tags
-        skills = {
-            "SQL (PostgreSQL/MySQL)": 90,
-            "Python (Streamlit/Pandas)": 80,
-            "Data Visualization (Plotly)": 75,
-            "Problem Solving": 80
-        }
-        for skill, level in skills.items():
-            st.write(f"**{skill}**")
-            st.progress(level)
-
-    with tab3:
-        st.write("""
-        In every project, I evaluate whether the long-term benefits **outweigh** the initial complexity. 
-        I am fascinated by how users are influenced **consciously or unconsciously** by data design, 
-        which is why I prioritize **perceived** performance and user experience.
-        """)
-
-    st.divider()
-
-    # Bagian Contact / Call to Action
-    st.header("📬 Get In Touch")
-    st.write("If you have **sufficient** data but lack the insights, let's collaborate!")
-    
-    contact_col1, contact_col2 = st.columns(2)
-    with contact_col1:
-        st.link_button("LinkedIn Profile", 'https://www.linkedin.com/in/caesar-simarmata/')
-    with contact_col2:
-        st.link_button("GitHub Repository", 'https://github.com/caesar-john')
-
 #dashboard
 elif pilihan_halaman=='Dashboard':
     st.header("📈 Housing Market Dashboard")
     
-    # Load Data
-    df = pd.read_csv(r"C:\Assignment Day 14\data\boston.csv")
-    
+    # Cari baris ini di bagian Dashboard
+    df = pd.read_csv("data/boston.csv")
     st.write("""
     This dashboard provides a **thorough** look into the factors affecting housing prices. 
     We analyze how variables like crime rates and room numbers **outweigh** others in value determination.

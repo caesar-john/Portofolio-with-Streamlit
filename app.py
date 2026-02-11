@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import numpy  as np
+import numpy as np
 import pickle
 import plotly.express as px
 import plotly.graph_objects as go
@@ -13,38 +13,31 @@ st.set_page_config(
     initial_sidebar_state='expanded'
 )
 
-#fungsi untuk load dataset
-
+# --- FUNGSI LOAD DATASET ---
 @st.cache_data
 def load_data():
-    return pd.read_csv(r'C:\Assignment Day 14\data\boston.csv')
+    # PERBAIKAN: Path relatif agar jalan di Streamlit Cloud
+    return pd.read_csv('data/boston.csv')
 
-#load data boston
+# --- LOAD DATA ---
 df_boston = load_data()
 
-#sidebar
+# --- SIDEBAR ---
 st.sidebar.header('Pengaturan & Navigasi')
-
 pilihan_halaman = st.sidebar.radio(
     'Pilihan Halaman:',
     ('About', 'Dashboard', 'Prediksi')
 )
 
-#About
-# About
+# --- HALAMAN: ABOUT ---
 if pilihan_halaman == "About":
-
     st.title("📂 About Me")
-    
-    # Bagian Header dengan kolom
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        # Menambahkan indentasi agar berada di dalam 'with col1'
         st.image("asset/foto profil.jpeg", caption="Data Analyst & Developer")
 
     with col2:
-        # Menambahkan indentasi agar berada di dalam 'with col2'
         st.subheader("Hi, I'm Caesar!")
         st.write("""
         I am a dedicated professional with a **thorough** approach to data analysis and web development. 
@@ -52,28 +45,25 @@ if pilihan_halaman == "About":
         """)
         st.info("Currently focused on building rigorous machine learning pipelines, ensuring model accuracy and reliable performance.")
 
-#dashboard
-elif pilihan_halaman=='Dashboard':
+# --- HALAMAN: DASHBOARD ---
+elif pilihan_halaman == 'Dashboard':
     st.header("📈 Housing Market Dashboard")
+    df = df_boston
     
-    # Cari baris ini di bagian Dashboard
-    df = pd.read_csv("data/boston.csv")
     st.write("""
     This dashboard provides a **thorough** look into the factors affecting housing prices. 
     We analyze how variables like crime rates and room numbers **outweigh** others in value determination.
     """)
     
-    # Metric Row (Perbaikan di baris ini)
     col1, col2, col3 = st.columns(3)
     col1.metric("Avg House Price", f"${df['medv'].mean():.2f}K")
     col2.metric("Avg Rooms", f"{df['rm'].mean():.1f}")
-    col3.metric("Total Records", len(df)) # Pastikan col3 terisi
+    col3.metric("Total Records", len(df))
     
-    # Jangan lupa tambahkan chart di bawahnya agar Dashboard tidak kosong
     fig = px.scatter(df, x="rm", y="medv", color="crim", title="Rooms vs Price")
     st.plotly_chart(fig, use_container_width=True)
 
-#Prediction
+# --- HALAMAN: PREDIKSI ---
 elif pilihan_halaman == 'Prediksi':
     st.header("🤖 House Price Prediction")
     st.write("Input the features below to get an **explicit** price prediction **derived** from our ML model.")
@@ -90,10 +80,6 @@ elif pilihan_halaman == 'Prediksi':
         submit = st.form_submit_button("Predict Price")
 
     if submit:
-        # Di sini nanti masukkan model .pkl kamu
-        # Untuk sementara kita pakai simulasi perhitungan
         prediction = (rm * 5) - (lstat * 0.5) + 10 
-        
         st.success(f"### Predicted House Price: ${prediction:.2f}K")
         st.write("This prediction is **sufficient** for initial estimation based on current trends.")
-
